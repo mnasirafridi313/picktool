@@ -1,55 +1,149 @@
-document.addEventListener("DOMContentLoaded", function() {
-const categorySelect = document.getElementById("category");
-const fromUnitSelect = document.getElementById("from-unit");
-const toUnitSelect = document.getElementById("to-unit");
-const convertBtn = document.getElementById("convert-btn");
-const resultDiv = document.getElementById("result");
-const units = {
-length: {
-m: { name: "Meters", base: 1 },
-km: { name: "Kilometers", base: 1000 },
-cm: { name: "Centimeters", base: 0.01 },
-mm: { name: "Millimeters", base: 0.001 },
-in: { name: "Inches", base: 0.0254 },
-ft: { name: "Feet", base: 0.3048 }
+const units={
+
+Length:{
+Meter:1,
+Kilometer:1000,
+Centimeter:0.01,
+Millimeter:0.001,
+Mile:1609.344,
+Yard:0.9144,
+Foot:0.3048,
+Inch:0.0254
 },
-mass: {
-kg: { name: "Kilograms", base: 1 },
-g: { name: "Grams", base: 0.001 },
-mg: { name: "Milligrams", base: 0.000001 },
-lb: { name: "Pounds", base: 0.453592 },
-oz: { name: "Ounces", base: 0.0283495 }
+
+Mass:{
+Kilogram:1,
+Gram:0.001,
+Milligram:0.000001,
+Ton:1000,
+Pound:0.453592,
+Ounce:0.0283495
 },
-volume: {
-L: { name: "Liters", base: 1 },
-mL: { name: "Milliliters", base: 0.001 },
-m3: { name: "Cubic Meters", base: 1000 },
-gal: { name: "Gallons (US)", base: 3.78541 }
+
+Time:{
+Second:1,
+Minute:60,
+Hour:3600,
+Day:86400,
+Week:604800
+},
+
+Volume:{
+Liter:1,
+Milliliter:0.001,
+CubicMeter:1000,
+Cup:0.236588,
+Gallon:3.78541
+},
+
+Area:{
+SquareMeter:1,
+SquareKilometer:1000000,
+SquareFoot:0.092903,
+SquareYard:0.836127,
+Acre:4046.86,
+Hectare:10000
+},
+
+Speed:{
+MeterPerSecond:1,
+KilometerPerHour:0.277778,
+MilePerHour:0.44704,
+Knot:0.514444
+},
+
+Temperature:{
+Celsius:"C",
+Fahrenheit:"F",
+Kelvin:"K"
 }
+
 };
-function updateUnits() {
-const category = categorySelect.value;
-const selectedUnits = units[category];
-fromUnitSelect.innerHTML = "";
-toUnitSelect.innerHTML = "";
-for (const unit in selectedUnits) {
-fromUnitSelect.innerHTML += <option value="${unit}">${selectedUnits[unit].name}</option>;
-toUnitSelect.innerHTML += <option value="${unit}">${selectedUnits[unit].name}</option>;
+
+const category=document.getElementById("category");
+const from=document.getElementById("from");
+const to=document.getElementById("to");
+
+for(let key in units){
+category.innerHTML+=`<option>${key}</option>`;
 }
+
+loadUnits();
+
+category.onchange=loadUnits;
+
+function loadUnits(){
+
+from.innerHTML="";
+to.innerHTML="";
+
+let list=units[category.value];
+
+for(let unit in list){
+
+from.innerHTML+=`<option>${unit}</option>`;
+to.innerHTML+=`<option>${unit}</option>`;
+
 }
-categorySelect.addEventListener("change", updateUnits);
-updateUnits();
-convertBtn.addEventListener("click", function() {
-const category = categorySelect.value;
-const amount = parseFloat(document.getElementById("amount").value);
-const fromUnit = fromUnitSelect.value;
-const toUnit = toUnitSelect.value;
-if (isNaN(amount)) {
-resultDiv.innerHTML = "Please enter a valid number.";
+
+}
+
+function convert(){
+
+let value=parseFloat(document.getElementById("amount").value);
+
+if(isNaN(value)){
+document.getElementById("result").innerHTML="Enter a value";
 return;
 }
-const baseValue = amount * units[category][fromUnit].base;
-const result = baseValue / units[category][toUnit].base;
-resultDiv.innerHTML = ${amount} ${units[category][fromUnit].name} = ${result} ${units[category][toUnit].name};
-});
-});
+
+let cat=category.value;
+
+if(cat==="Temperature"){
+
+let result;
+
+let f=from.value;
+let t=to.value;
+
+if(f===t){
+result=value;
+}
+
+else if(f==="Celsius"&&t==="Fahrenheit"){
+result=value*9/5+32;
+}
+
+else if(f==="Fahrenheit"&&t==="Celsius"){
+result=(value-32)*5/9;
+}
+
+else if(f==="Celsius"&&t==="Kelvin"){
+result=value+273.15;
+}
+
+else if(f==="Kelvin"&&t==="Celsius"){
+result=value-273.15;
+}
+
+else if(f==="Fahrenheit"&&t==="Kelvin"){
+result=(value-32)*5/9+273.15;
+}
+
+else if(f==="Kelvin"&&t==="Fahrenheit"){
+result=(value-273.15)*9/5+32;
+}
+
+document.getElementById("result").innerHTML=result.toFixed(4)+" "+t;
+
+return;
+
+}
+
+let base=value*units[cat][from.value];
+
+let result=base/units[cat][to.value];
+
+document.getElementById("result").innerHTML=result.toFixed(6)+" "+to.value;
+
+}
