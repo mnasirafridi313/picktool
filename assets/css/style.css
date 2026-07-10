@@ -1,32 +1,30 @@
-/* Reset */
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
 
-/* Header and Search */
-.header { text-align: center; padding: 20px; background: #f4f4f4; border-bottom: 2px solid #ddd; }
-.search-bar { width: 80%; max-width: 400px; padding: 10px; margin-top: 10px; border: 1px solid #ccc; border-radius: 20px; }
+/* Header */
+.header { text-align: center; padding: 20px; background: #2c3e50; color: white; }
+.search-bar { width: 90%; max-width: 400px; padding: 10px; margin-top: 10px; border-radius: 5px; border: none; }
 
-/* Layout Structure */
-.main-wrapper { display: flex; flex-direction: row; min-height: 80vh; }
-
-/* Sidebar */
-.nav-menu { width: 200px; min-width: 200px; padding: 20px; background: #fff; border-right: 1px solid #eee; }
-.nav-menu a { display: block; padding: 12px; text-decoration: none; color: #333; font-weight: bold; border-bottom: 1px solid #eee; }
-.nav-menu a:hover { color: #007bff; }
-
-/* Tool Grid */
-.content-area { flex-grow: 1; padding: 20px; }
-.tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
-.tool-card { border: 1px solid #ddd; padding: 20px; text-decoration: none; color: #333; border-radius: 8px; text-align: center; }
-
-/* Calculator Containers (Scoped to not break layout) */
-.calculator-container { max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
-.input-group { margin-bottom: 15px; }
-.input-group input, .input-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
-.result-box { margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px; text-align: center; }
-.back-link { display: block; margin-top: 15px; text-decoration: none; color: blue; }
-
-/* Mobile view */
-@media (max-width: 600px) {
-    .main-wrapper { flex-direction: column; }
-    .nav-menu { width: 100%; border-right: none; border-bottom: 2px solid #eee; }
+/* Horizontal Nav Bar */
+.nav-bar { 
+    display: flex; 
+    overflow-x: auto; /* Allows scrolling if menu is wide */
+    background: #34495e; 
+    padding: 10px; 
 }
+.nav-bar a { 
+    color: white; 
+    padding: 10px 15px; 
+    text-decoration: none; 
+    font-weight: bold; 
+    white-space: nowrap; /* Keeps text on one line */
+}
+.nav-bar a:hover { background: #1abc9c; }
+
+/* Tools */
+.content-area { padding: 20px; }
+.tool-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 10px; }
+.tool-card { border: 1px solid #ddd; padding: 15px; text-decoration: none; color: #333; background: #ecf0f1; border-radius: 8px; text-align: center; }
+.tool-card:hover { background: #bdc3c7; }
+
+/* Calculator Containers */
+.calculator-container { max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background: white; }
