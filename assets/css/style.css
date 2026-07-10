@@ -1,34 +1,31 @@
-
+/* Reset */
 * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
 
-/* --- HOME PAGE LAYOUT --- */
-.header { text-align: center; padding: 20px; background: #f4f4f4; }
+/* Header and Search */
+.header { text-align: center; padding: 20px; background: #f4f4f4; border-bottom: 2px solid #ddd; }
+.search-bar { width: 80%; max-width: 400px; padding: 10px; margin-top: 10px; border: 1px solid #ccc; border-radius: 20px; }
+
+/* Layout Structure */
 .main-wrapper { display: flex; flex-direction: row; min-height: 80vh; }
 
-.nav-menu { width: 200px; padding: 20px; background: #fff; border-right: 1px solid #eee; }
-.nav-menu a { display: block; padding: 10px; text-decoration: none; color: #333; border-bottom: 1px solid #eee; }
+/* Sidebar */
+.nav-menu { width: 200px; min-width: 200px; padding: 20px; background: #fff; border-right: 1px solid #eee; }
+.nav-menu a { display: block; padding: 12px; text-decoration: none; color: #333; font-weight: bold; border-bottom: 1px solid #eee; }
+.nav-menu a:hover { color: #007bff; }
 
+/* Tool Grid */
 .content-area { flex-grow: 1; padding: 20px; }
 .tool-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
 .tool-card { border: 1px solid #ddd; padding: 20px; text-decoration: none; color: #333; border-radius: 8px; text-align: center; }
 
-/* --- CALCULATOR PAGE STYLES --- */
-/* We scope these so they only affect tool pages */
-.calculator-container { 
-    max-width: 500px; 
-    margin: 20px auto; 
-    padding: 20px; 
-    border: 1px solid #ddd; 
-    border-radius: 10px; 
-    background: #fff; 
-}
+/* Calculator Containers (Scoped to not break layout) */
+.calculator-container { max-width: 500px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
 .input-group { margin-bottom: 15px; }
-.input-group label { display: block; margin-bottom: 5px; }
 .input-group input, .input-group select { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 5px; }
 .result-box { margin-top: 20px; padding: 15px; background: #f9f9f9; border-radius: 5px; text-align: center; }
 .back-link { display: block; margin-top: 15px; text-decoration: none; color: blue; }
 
-/* --- MOBILE RESPONSIVENESS --- */
+/* Mobile view */
 @media (max-width: 600px) {
     .main-wrapper { flex-direction: column; }
     .nav-menu { width: 100%; border-right: none; border-bottom: 2px solid #eee; }
