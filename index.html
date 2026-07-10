@@ -2,56 +2,35 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>PICKTOOL | Professional Tools</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PickTool</title>
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
+    <!-- Header Banner -->
     <header class="header">
         <h1>PICKTOOL</h1>
-        <input type="text" class="search-bar" placeholder="Search tools...">
+        <input type="text" id="searchBar" placeholder="Search tools..." class="search-bar">
     </header>
 
-    <nav class="nav-bar">
-        <a href="#calc-content">Calculation</a>
-        <a href="#surprised-content">Surprised</a>
-    </nav>
-
-    <!-- Calculation Section -->
-    <div class="accordion-item">
-        <button class="accordion-header" onclick="toggleAccordion('calc-content')">Calculation Tools ▾</button>
-        <div id="calc-content" class="accordion-content active">
-            <div class="tool-grid">
-                <a href="tools/age-calculator.html" class="tool-card">Age</a>
-                <a href="tools/bmi-calculator.html" class="tool-card">BMI</a>
-                <a href="tools/gold-calculator.html" class="tool-card">Gold</a>
-                <a href="tools/zakat-calculator.html" class="tool-card">Zakāt</a>
-                <a href="tools/discount-calculator.html" class="tool-card">Discount</a>
-                <a href="tools/complex-calculator.html" class="tool-card">Complex</a>
-            </div>
+    <!-- Main Tool Grid -->
+    <main class="container">
+        <div class="tool-grid" id="toolGrid">
+            <a href="tools/age-calculator.html" class="tool-card">Age</a>
+            <a href="tools/bmi-calculator.html" class="tool-card">BMI</a>
+            <a href="tools/gold-calculator.html" class="tool-card">Gold</a>
+            <a href="tools/zakat-calculator.html" class="tool-card">Zakat</a>
+            <a href="tools/discount-calculator.html" class="tool-card">Discount</a>
+            <a href="tools/puzzle-game.html" class="tool-card">Puzzle Game</a>
         </div>
-    </div>
+    </main>
 
-    <!-- Surprised Section -->
-    <div class="accordion-item">
-        <button class="accordion-header" onclick="toggleAccordion('surprised-content')">Surprised Tools ▾</button>
-        <div id="surprised-content" class="accordion-content">
-            <div class="tool-grid">
-                <a href="tools/password-maker.html" class="tool-card">Password</a>
-                <a href="tools/qr-maker.html" class="tool-card">QR Code</a>
-                <a href="tools/barcode-maker.html" class="tool-card">Bar Code</a>
-                <a href="tools/name-maker.html" class="tool-card">Name Maker</a>
-                <a href="tools/email-generator.html" class="tool-card">Email Gen</a>
-            </div>
-        </div>
-    </div>
-<a href="tools/puzzle-game.html" class="tool-card">Puzzle Game</a>
-    
-    <script>
-        function toggleAccordion(id) {
-            document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-        }
-    </script>
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 PickTool. All rights reserved.</p>
+        <p>Contact: nasir@picktool.com</p>
+    </footer>
+
 </body>
 </html>
