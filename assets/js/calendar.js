@@ -199,3 +199,9 @@ renderCalendar();
 renderCalendar();
 
 });
+#month-year-display{
+font-size:24px;
+font-weight:bold;
+text-align:center;
+margin:0;
+}
