@@ -1,87 +1,201 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const monthYearDisplay = document.getElementById("month-year-display");
-    const daysGrid = document.getElementById("days-grid");
-    const datesGrid = document.getElementById("dates-grid");
-    const calendarToggle = document.getElementById("calendar-toggle");
+const monthYearDisplay = document.getElementById("month-year-display");
+const daysGrid = document.getElementById("days-grid");
+const datesGrid = document.getElementById("dates-grid");
+const calendarToggle = document.getElementById("calendar-toggle");
 
-    let currentDate = moment();
+let currentDate = moment();
 
-    function renderCalendar() {
+const today = moment();
 
-        daysGrid.innerHTML = "";
-        datesGrid.innerHTML = "";
+const daysOfWeek = [
+"Sun",
+"Mon",
+"Tue",
+"Wed",
+"Thu",
+"Fri",
+"Sat"
+];
 
-        const isHijri = calendarToggle.checked;
+const header = document.querySelector(".calendar-header");
 
-        const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+const prevBtn = document.createElement("button");
+prevBtn.innerHTML = "◀";
+prevBtn.className = "nav-btn";
 
-        daysOfWeek.forEach(function (day) {
-            const dayCell = document.createElement("div");
-            dayCell.textContent = day;
-            daysGrid.appendChild(dayCell);
-        });
+const nextBtn = document.createElement("button");
+nextBtn.innerHTML = "▶";
+nextBtn.className = "nav-btn";
 
-        if (isHijri) {
+const todayBtn = document.createElement("button");
+todayBtn.innerHTML = "Today";
+todayBtn.className = "nav-btn";
 
-            monthYearDisplay.textContent = currentDate.format("iMMMM iYYYY");
+header.insertBefore(prevBtn, monthYearDisplay);
 
-            const daysInMonth = currentDate.iDaysInMonth();
-            const firstDayOfMonth = currentDate.clone().iDate(1).day();
+header.insertBefore(nextBtn, header.lastElementChild);
 
-            for (let i = 0; i < firstDayOfMonth; i++) {
-                const emptyCell = document.createElement("div");
-                emptyCell.className = "date-cell empty";
-                datesGrid.appendChild(emptyCell);
-            }
+header.appendChild(todayBtn);
 
-            for (let i = 1; i <= daysInMonth; i++) {
+prevBtn.addEventListener("click", function () {
 
-                const dateCell = document.createElement("div");
-                dateCell.className = "date-cell";
-                dateCell.textContent = i;
+if (calendarToggle.checked) {
 
-                dateCell.addEventListener("click", function () {
-                    alert(`Selected Hijri Date: ${i}/${currentDate.iMonth() + 1}/${currentDate.iYear()}`);
-                });
+currentDate.subtract(1, "iMonth");
 
-                datesGrid.appendChild(dateCell);
+} else {
 
-            }
+currentDate.subtract(1, "month");
 
-        } else {
+}
 
-            monthYearDisplay.textContent = currentDate.format("MMMM YYYY");
+renderCalendar();
 
-            const daysInMonth = currentDate.daysInMonth();
-            const firstDayOfMonth = currentDate.clone().date(1).day();
+});
 
-            for (let i = 0; i < firstDayOfMonth; i++) {
-                const emptyCell = document.createElement("div");
-                emptyCell.className = "date-cell empty";
-                datesGrid.appendChild(emptyCell);
-            }
+nextBtn.addEventListener("click", function () {
 
-            for (let i = 1; i <= daysInMonth; i++) {
+if (calendarToggle.checked) {
 
-                const dateCell = document.createElement("div");
-                dateCell.className = "date-cell";
-                dateCell.textContent = i;
+currentDate.add(1, "iMonth");
 
-                dateCell.addEventListener("click", function () {
-                    alert(`Selected Gregorian Date: ${i}/${currentDate.month() + 1}/${currentDate.year()}`);
-                });
+} else {
 
-                datesGrid.appendChild(dateCell);
+currentDate.add(1, "month");
 
-            }
+}
 
-        }
+renderCalendar();
 
+});
+
+todayBtn.addEventListener("click", function () {
+
+currentDate = moment();
+
+renderCalendar();
+
+});
+
+function renderCalendar() {
+
+daysGrid.innerHTML = "";
+datesGrid.innerHTML = "";
+
+daysOfWeek.forEach(function(day){
+
+const cell = document.createElement("div");
+
+cell.textContent = day;
+
+cell.style.fontWeight = "bold";
+
+daysGrid.appendChild(cell);
+
+});
+
+const isHijri = calendarToggle.checked;
+    if (isHijri) {
+
+monthYearDisplay.textContent = currentDate.format("iMMMM iYYYY");
+
+const daysInMonth = currentDate.iDaysInMonth();
+
+const firstDay = currentDate.clone().iDate(1).day();
+
+for (let i = 0; i < firstDay; i++) {
+
+const empty = document.createElement("div");
+empty.className = "date-cell empty";
+datesGrid.appendChild(empty);
+
+}
+
+for (let i = 1; i <= daysInMonth; i++) {
+
+const cell = document.createElement("div");
+cell.className = "date-cell";
+cell.textContent = i;
+
+if (
+i === today.iDate() &&
+currentDate.iMonth() === today.iMonth() &&
+currentDate.iYear() === today.iYear()
+) {
+
+cell.style.background = "#3b5998";
+cell.style.color = "#fff";
+cell.style.borderRadius = "50%";
+cell.style.fontWeight = "bold";
+
+}
+
+cell.addEventListener("click", function () {
+
+alert(`Selected Hijri Date: ${i}/${currentDate.iMonth()+1}/${currentDate.iYear()}`);
+
+});
+
+datesGrid.appendChild(cell);
+
+}
+
+} else {
+
+monthYearDisplay.textContent = currentDate.format("MMMM YYYY");
+
+const daysInMonth = currentDate.daysInMonth();
+
+const firstDay = currentDate.clone().date(1).day();
+
+for (let i = 0; i < firstDay; i++) {
+
+const empty = document.createElement("div");
+empty.className = "date-cell empty";
+datesGrid.appendChild(empty);
+
+}
+
+for (let i = 1; i <= daysInMonth; i++) {
+
+const cell = document.createElement("div");
+cell.className = "date-cell";
+cell.textContent = i;
+
+if (
+i === today.date() &&
+currentDate.month() === today.month() &&
+currentDate.year() === today.year()
+) {
+
+cell.style.background = "#3b5998";
+cell.style.color = "#fff";
+cell.style.borderRadius = "50%";
+cell.style.fontWeight = "bold";
+
+}
+
+cell.addEventListener("click", function () {
+
+alert(`Selected Gregorian Date: ${i}/${currentDate.month()+1}/${currentDate.year()}`);
+
+});
+
+datesGrid.appendChild(cell);
+
+}
+
+}
     }
 
-    calendarToggle.addEventListener("change", renderCalendar);
+calendarToggle.addEventListener("change", function () {
 
-    renderCalendar();
+renderCalendar();
+
+});
+
+renderCalendar();
 
 });
