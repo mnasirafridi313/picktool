@@ -29,22 +29,33 @@
 /* Calculator Containers */
 .calculator-container { max-width: 400px; margin: 20px auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; background: white; }
 /* Styling the inner tool pages to match the site */
-.calculator-container {
-    max-width: 500px;
-    margin: 40px auto;
-    padding: 30px;
-    background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    border: 1px solid #ddd;
-}
-input, select {
-    width: 100%;
-    padding: 12px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
+.    /* Modern Calculator Container */
+    .calculator-container {
+        max-width: 500px;
+        margin: 40px auto;
+        padding: 30px;
+        background: #ffffff;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    /* Modern Inputs */
+    input, select {
+        width: 100%;
+        padding: 12px;
+        margin: 10px 0;
+        border: 2px solid #f0f0f0;
+        border-radius: 12px;
+        background: #fdfdfd;
+        transition: border-color 0.3s;
+    }
+
+    input:focus {
+        border-color: #6c5ce7;
+        outline: none;
+    }
+
 button {
     width: 100%;
     padding: 12px;
