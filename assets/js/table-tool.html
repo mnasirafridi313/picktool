@@ -2,42 +2,70 @@
     let rowCount = 0;
     let colCount = 0;
 
-    // Adds a new column to the table
+    // Load data from localStorage on startup
+    window.onload = () => {
+        let savedData = localStorage.getItem('myTableData');
+        if (savedData) {
+            document.getElementById('body').innerHTML = savedData;
+            rowCount = document.getElementById('body').rows.length;
+            colCount = document.getElementById('head').cells.length - 1;
+            updateSummary();
+        }
+    };
+
     function addCol() {
         colCount++;
         let head = document.getElementById('head');
         let th = document.createElement('th');
         th.innerText = "Col " + colCount;
         head.appendChild(th);
-        
         let rows = document.getElementById('body').rows;
         for(let r of rows) {
             let cell = r.insertCell(-1);
             cell.innerHTML = '<input type="text" class="val" oninput="updateSummary()">';
         }
+        saveData();
     }
 
-    // Adds a new row to the table
     function addRow() {
         rowCount++;
         let row = document.getElementById('body').insertRow();
         row.insertCell(0).innerText = rowCount;
-        
-        for(let i = 0; i < colCount; i++) {
+        for(let i=0; i<colCount; i++) {
             row.insertCell(-1).innerHTML = '<input type="text" class="val" oninput="updateSummary()">';
         }
-        updateSummary();
+        saveData();
     }
 
-    // Calculates the sum of all digits in the input fields
     function updateSummary() {
         let inputs = document.querySelectorAll('.val');
         let grand = 0;
-        inputs.forEach(i => {
-            // Converts text input to number; ignores non-numeric text
-            grand += Number(i.value) || 0;
-        });
+        inputs.forEach(i => grand += Number(i.value) || 0);
         document.getElementById('count').innerText = rowCount;
         document.getElementById('grandTotal').innerText = grand;
+        saveData(); // Auto-save on every change
     }
-</script>
+
+    function saveData() {
+        localStorage.setItem('myTableData', document.getElementById('body').innerHTML);
+    }
+
+    function downloadTable() {
+        let table = document.getElementById('tbl');
+        let csv = [];
+        for (let i = 0; i < table.rows.length; i++) {
+            let row = [], cols = table.rows[i].querySelectorAll("td, th");
+            for (let j = 0; j < cols.length; j++) {
+                let val = cols[j].querySelector('input') ? cols[j].querySelector('input').value : cols[j].innerText;
+                row.push(val);
+            }
+            csv.push(row.join(","));
+        }
+        let blob = new Blob([csv.join("\n")], { type: 'text/csv' });
+        let a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = (document.getElementById('title').value || "Data") + ".csv";
+        a.click();
+    }
+                    </script>
+                    
