@@ -204,7 +204,7 @@ while(inside(nr,nc)){
 
 if(board[nr][nc]==null){
 
-moves.push({r:nr,c:nc);
+moves.push({r:nr,c:nc});
 
 }else{
 
