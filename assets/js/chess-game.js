@@ -267,6 +267,17 @@ break;
 
 }
 
+moves = moves.filter(move => {
+
+return !wouldLeaveKingInCheck(
+r,
+c,
+move.r,
+move.c
+);
+
+});
+
 return moves;
 
     }
