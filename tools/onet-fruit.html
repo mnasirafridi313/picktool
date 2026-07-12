@@ -4,39 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Onet Fruit Classic</title>
+    
+    <!-- This links your standard website design (like the Age Calculator) -->
+    <link rel="stylesheet" href="../style.css"> 
+    
     <style>
-        body { 
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; 
-            padding: 20px; 
-            background-color: #f4f4f9; 
-            text-align: center; 
-            margin: 0; 
-        }
-        .header { 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            max-width: 400px; 
-            margin: 0 auto 20px; 
-            padding-top: 10px; 
-        }
-        .back-btn { 
-            text-decoration: none; 
-            color: #007bff; 
-            font-weight: bold; 
-            font-size: 16px; 
-        }
-        .score-board { 
-            font-size: 18px; 
-            font-weight: bold; 
-            background: #fff; 
-            padding: 8px 15px; 
-            border-radius: 20px; 
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
-        }
-        
-        h2 { margin-top: 0; color: #333; }
-
+        /* Only the game board mechanics stay here */
         #game-board {
             display: grid;
             grid-template-columns: repeat(8, 1fr);
@@ -44,9 +17,9 @@
             background: #8D6E63; 
             padding: 8px;
             border-radius: 8px;
-            margin: 0 auto;
-            max-width: 100%;
-            width: 400px; 
+            margin: 20px auto;
+            width: 100%;
+            max-width: 400px;
             box-sizing: border-box;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
         }
@@ -62,7 +35,7 @@
             cursor: pointer;
             box-shadow: 0 3px 0 #D7CCC8;
             user-select: none;
-            transition: transform 0.1s, box-shadow 0.1s, background 0.1s;
+            transition: transform 0.1s, box-shadow 0.1s;
         }
         .tile:active:not(.empty) {
             transform: translateY(3px);
@@ -78,45 +51,38 @@
             border: 2px solid #00BCD4;
             box-shadow: 0 1px 0 #00ACC1;
             transform: translateY(2px);
-            box-sizing: border-box;
         }
-
-        .controls { margin-top: 25px; }
-        .btn { 
-            padding: 12px 24px; 
-            border: none; 
-            border-radius: 25px; 
-            background: #E91E63; 
-            color: white; 
-            font-weight: bold; 
-            font-size: 16px; 
-            cursor: pointer; 
-            margin: 0 8px; 
-            box-shadow: 0 4px 0 #C2185B; 
-            transition: all 0.1s; 
+        .game-controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
         }
-        .btn:active { 
-            transform: translateY(4px); 
-            box-shadow: 0 0 0 #C2185B; 
+        .score-text {
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <a href="../index.html" class="back-btn">&larr; Back</a>
-        <div class="score-board">Score: <span id="score">0</span></div>
-    </div>
-    
-    <h2>Onet Fruit Classic</h2>
-    
-    <div id="game-board"></div>
-    
-    <div class="controls">
-        <button class="btn" onclick="initGame()">New Game</button>
-        <button class="btn" onclick="shuffleGrid()">Shuffle</button>
+    <div class="container">
+        <a href="../index.html" class="back-link">&larr; Back</a>
+        <h2>Onet Fruit Classic</h2>
+        
+        <div class="score-text">Score: <span id="score">0</span></div>
+        
+        <div id="game-board"></div>
+        
+        <div class="game-controls">
+            <!-- Ensure your buttons use the same class as your Age Calculator (usually "btn") -->
+            <button class="btn" onclick="initGame()">New Game</button>
+            <button class="btn" onclick="shuffleGrid()">Shuffle</button>
+        </div>
     </div>
 
-    <!-- This line links to your separate JS file -->
+    <!-- This links to your JavaScript. They MUST be in the exact same folder. -->
     <script src="onet-fruit.js"></script>
 </body>
 </html>
